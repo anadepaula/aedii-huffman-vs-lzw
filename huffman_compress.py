@@ -54,6 +54,22 @@ def save_compress_file(text_cod, map):
         f.write(data)
     with open(folder + "/huffman_map.huffmap", 'wb') as f:
         pickle.dump(map, f)
+
+def save_compress_file2(filename, text_cod, map):
+    data = bytearray()
+    padding = 8 - len(text_cod) % 8
+    text_cod += '0' * padding
+    data.append(padding)
+    for i in range (0, len(text_cod), 8):
+        byte = text_cod[i:i+8]
+        data.append(int(byte, 2))
+
+    with open(filename + ".huff", 'wb') as f:
+        f.write(data)
+    with open(filename + ".huffmap", 'wb') as f:
+        pickle.dump(map, f)
+ 
+
  
 def codificar_texto(texto, huffman_dic):
     """
@@ -161,6 +177,33 @@ def abrir_arquivo():
     return texto
  
 
+def abrir_arquivo2(filename):
+    """
+    Abre um arquivo .txt e retorna o texto contido nele.
+
+    Returns:
+        str: Texto contido no arquivo.
+    """
+
+    f = open(filename, 'r', encoding='utf-8')
+    texto = f.read()
+    return texto
+ 
+def huffman_compress(filename):
+    """
+    Função que executa o processo de compressão de um arquivo usando o algoritmo de Huffman.
+
+    Args:
+        filename (str): Caminho do arquivo a ser comprimido.
+    Returns:
+        None
+    """
+    texto = abrir_arquivo2(filename + ".txt")
+    freq_table = criar_tabela_freq(texto)
+    huff_dic = criar_arvore_huffman(freq_table)
+    codificado = codificar_texto(texto, huff_dic)
+    save_compress_file2(filename, codificado, huff_dic)
+
 
 def main():
     """
@@ -171,7 +214,6 @@ def main():
     huff_dic = criar_arvore_huffman(freq_table)
     codificado = codificar_texto(text, huff_dic)
     save_compress_file(codificado, huff_dic)
+
 if __name__ == "__main__":
     main()
-
-
