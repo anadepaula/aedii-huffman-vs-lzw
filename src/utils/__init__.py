@@ -5,6 +5,9 @@ from .types import(
     LZW_COMPRESSED_FILE_EXTENSION,
     READING_MODE_COMPRESS,
     READING_MODE_DECOMPRESS,
+    WRITING_MODE_COMPRESS,
+    WRITING_MODE_DECOMPRESS,
+)
 from .file_handling import (
     read_text_file,
     save_content_to_file,
@@ -29,4 +32,6 @@ __all__ = [
     LZW_COMPRESSED_FILE_EXTENSION,
     READING_MODE_COMPRESS,
     READING_MODE_DECOMPRESS,
+    WRITING_MODE_COMPRESS,
+    WRITING_MODE_DECOMPRESS,
 ]
