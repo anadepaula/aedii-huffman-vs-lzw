@@ -2,6 +2,9 @@
 *.huff
 *.huffmap
 *.lzw
+*.fna
+*.gz
+*.csv
 
 # text files
 *.txt
