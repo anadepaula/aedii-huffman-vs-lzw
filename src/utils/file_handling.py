@@ -58,14 +58,11 @@ def get_file_names_huffman(filename):
 def get_file_object(filename, mode):
     return open(filename, mode)
 
-def get_file_object_to_read_decompressed_file(filename):
-    return get_file_object(filename, READING_MODE_DECOMPRESS)
-
 def get_file_object_to_write_compressed_file(filename):
     return get_file_object(filename, WRITING_MODE_COMPRESS)
 
 def get_file_object_to_read_compressed_file(filename):
-    return get_file_object(filename, READING_MODE_COMPRESS)
+    return get_file_object(filename, READING_MODE_DECOMPRESS)
 
 def get_file_object_to_write_decompressed_file(filename):
     return get_file_object(filename, WRITING_MODE_DECOMPRESS)

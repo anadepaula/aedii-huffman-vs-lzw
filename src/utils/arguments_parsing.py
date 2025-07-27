@@ -17,7 +17,7 @@ def validate_inputted_file(filename, extension=None):
     try:
         assert os.path.exists(filename)
     except AssertionError as e:
-        logger.error(f"flie {filename} doesn't exist")
+        logger.error(f"file {filename} doesn't exist")
         raise FileNotFoundError(filename)
     except Exception as e:
         logger.error(f"something happened while trying to open file {filename}: {e}")

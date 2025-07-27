@@ -2,33 +2,44 @@ from utils import (
     parse_args_main,
     parse_args_compress, 
     parse_args_decompress_huffman,
+    parse_args_decompress_lzw,
     get_file_object_to_read_compressed_file,
     get_file_object_to_write_compressed_file,
     get_file_object_to_write_decompressed_file,
     read_text_file, 
     get_file_names_huffman,
+    get_file_names_lzw,
     read_binary_file,
     logger,
+
 )
 
 from huffman import (
-    compress,
-    decompress,
+    compress as huffman_compress,
+    decompress as huffman_decompress,
     save_huffman_map_to_file,
     save_huffman_compressed,
     read_huffman_map,
     save_decompressed_data,
 )
+from lzw import (
+    compress as lzw_compress,
+    decompress as lzw_decompress,
+    load_lzw,
+    save_decompressed_data,
+    save_lzw
+)
 
 
-def huffman_compress(args=None):
+def huffman_compress_cli(args=None):
     args = parse_args_compress(args)
+    logger.debug(f"args {args}")
     filename = args.file_to_compress_path
 
     logger.info(f"let's try to compress {filename}")
     file_content = read_text_file(filename)
 
-    compressed_content, map_tree = compress(file_content)
+    compressed_content, map_tree = huffman_compress(file_content)
     
     filename_compressed_file, filename_map_tree = get_file_names_huffman(filename)
 
@@ -44,8 +55,9 @@ def huffman_compress(args=None):
     save_huffman_map_to_file(map_tree, file_object_map_tree)
     logger.info(f"compression finished!")
 
-def huffman_decompress(args=None):
+def huffman_decompress_cli(args=None):
     args = parse_args_decompress_huffman(args)
+    logger.debug(f"args {args}")
     file_path = args.file_path
     map_file_path = args.map_file_path
     output_file_path = args.output_file_path
@@ -54,31 +66,70 @@ def huffman_decompress(args=None):
     huffman_map_file_object = get_file_object_to_read_compressed_file(map_file_path)
     huffman_map = read_huffman_map(huffman_map_file_object)
     
-    decompressed_data = decompress(data, huffman_map)
+    decompressed_data = huffman_decompress(data, huffman_map)
 
     file_object_decompressed_file = get_file_object_to_write_decompressed_file(
         output_file_path
     )
     save_decompressed_data(decompressed_data, file_object_decompressed_file)
 
+def lzw_compress_cli(args=None):
+    args = parse_args_compress(args)
+    logger.debug(f"args {args}")
+    filename = args.file_to_compress_path
+    logger.debug(f"filename {filename}")
+
+    logger.info(f"let's try to compress {filename}")
+    file_content = read_text_file(filename)
+
+    compressed_content, alphabet = lzw_compress(file_content)
+    
+    filename_compressed_file = get_file_names_lzw(filename)
+    logger.info(f"saving outputs in {filename_compressed_file}")
+    file_object_compressed_file = get_file_object_to_write_compressed_file(
+        filename_compressed_file
+    )
+    save_lzw(
+        file_object_compressed_file,
+        compressed_content,
+        alphabet
+    )
+    logger.info(f"compression finished!")
+
+def lzw_decompress_cli(args=None):
+    args = parse_args_decompress_lzw(args)
+    logger.debug(f"args {args}")
+    file_path = args.file_path
+    output_file_path = args.output_file_path
+
+    file_object_compressed_file = get_file_object_to_read_compressed_file(file_path)
+
+    loaded_codes, loaded_alphabet = load_lzw(file_object_compressed_file)
+    decompressed = lzw_decompress(loaded_codes, loaded_alphabet)
+    file_object_decompressed_file = get_file_object_to_write_decompressed_file(
+        output_file_path
+    )
+    save_decompressed_data(decompressed, file_object_decompressed_file)
+
 
 if __name__ == "__main__":
     args, remaining_args = parse_args_main()
-    logger.info(args)
-    logger.info(remaining_args)
+    logger.debug(f"args {args}")
+    logger.debug(f"remaining args {remaining_args}")
 
     step = args.step
     algorithm = args.algorithm
+    logger.debug(f"step {step} algorithm {algorithm}")
 
     if step == "compress" and algorithm == "huffman":
-        action = huffman_compress
-    # elif is_compress and algorithm == "lzw":
-    #     action = lzw_compress
-    elif step == "decompress" and algorithm == "huffmann":
-        action = huffman_decompress
+        action = huffman_compress_cli
+    elif step == "compress" and algorithm == "lzw":
+        action = lzw_compress_cli
+    elif step == "decompress" and algorithm == "huffman":
+        action = huffman_decompress_cli
+    elif step == "decompress" and algorithm == "lzw":
+        action = lzw_decompress_cli
     else:
-        raise Exception("case unmapped")
-    # elif not is_compress and algorithm == "lzw":
-    #     action = lzw_decompress
+        raise Exception(f"case unmapped, args {args} remaining args {remaining_args}")
 
     action(remaining_args)
