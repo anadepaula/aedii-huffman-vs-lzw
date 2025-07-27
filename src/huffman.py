@@ -4,6 +4,7 @@ from utils import (
     parse_args_decompress_huffman,
     read_text_file, 
     save_content_to_file, 
+    save_decompressed_content_to_file,
     save_huffman_map_to_file,
     get_file_names_huffman,
     read_huffman_map,
@@ -47,7 +48,7 @@ def huffman_decompress(args=None):
     compressed_text = load_compressed_file(data)
     huffman_map = read_huffman_map(map_file_path)
     decompressed_data = decompress_data(compressed_text, huffman_map) 
-    save_content_to_file(decompressed_data, output_file_path, WRITING_MODE_DECOMPRESS)
+    save_decompressed_content_to_file(decompressed_data, output_file_path)
 
 if __name__ == "__main__":
     args, remaining_args = parse_args_main()

@@ -38,6 +38,10 @@ def save_content_to_file(content, filename, mode):
     with open(filename, mode) as f:
         f.write(content)
 
+def save_decompressed_content_to_file(content, filename):
+    mode = WRITING_MODE_DECOMPRESS
+    save_content_to_file(content, filename, mode)
+
 def save_huffman_map_to_file(huffman_map, filename):
     with open(filename, WRITING_MODE_COMPRESS) as f:
         pickle.dump(huffman_map, f)
@@ -47,11 +51,27 @@ def read_huffman_map(filename):
         content = pickle.load(f)
     return content
 
+def remove_extension(filename):
+    return filename.rsplit(".", 1)[0]
+
+def get_file_names_lzw(filename):
+    filename_without_extension = remove_extension(filename)
+    filename_compressed_file = f"{filename_without_extension}.lzw"
+
+    return filename_compressed_file
 
 def get_file_names_huffman(filename):
-    filename_without_extension = filename.rsplit(".", 1)[0]
+    filename_without_extension = remove_extension(filename)
     
     filename_compressed_file = f"{filename_without_extension}.huff"
     filename_map_tree = f"{filename_without_extension}.huffmap"
 
     return filename_compressed_file, filename_map_tree
+
+def get_file_object_to_read_lzw_compressed_file(filename):
+    file_object = open(filename, "rb")
+    return file_object
+
+def get_file_object_to_write_lzw_compressed_file(filename):
+    file_object = open(filename, "wb")
+    return file_object

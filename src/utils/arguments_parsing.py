@@ -4,13 +4,15 @@ import argparse
 from .types import (
     HUFFMANN_COMPRESSED_FILE_EXTENSION,
     HUFFMANN_MAP_EXTENSION,
+    LZW_COMPRESSED_FILE_EXTENSION,
 )
 from .logging import logger
 
 
 def validate_inputted_file(filename, extension=None):
     if extension:
-        assert filename.endswith(extension)
+        if not filename.endswith(extension):
+            return False
     
     try:
         assert os.path.exists(filename)
@@ -26,6 +28,12 @@ def validate_inputted_file(filename, extension=None):
 def validate_file_to_compress(filename):
     return validate_inputted_file(
         filename,
+    )
+
+def validate_lzw_compressed_file(filename):
+    return validate_inputted_file(
+        filename, 
+        LZW_COMPRESSED_FILE_EXTENSION,
     )
 
 def validate_huffman_compressed_file(filename):
@@ -51,6 +59,25 @@ def parse_args_compress(args=None):
     )
 
     parsed_args = parser.parse_args(args)
+    return parsed_args
+
+def parse_args_decompress_lzw(args=None):
+    logger.info(args)
+    parser = argparse.ArgumentParser(
+        description=('utility to compress files compressed using lzw algorithm')
+    )
+    parser.add_argument(
+        'file_path',
+        type=validate_lzw_compressed_file,
+        help = 'filename of .huff file containing the compressed file.'
+    )
+    parser.add_argument(
+        'output_file_path', 
+        help = 'filename of to use to save decompressed file.'
+    )
+
+    parsed_args = parser.parse_args(args)
+    logger.info(parsed_args)
     return parsed_args
 
 def parse_args_decompress_huffman(args=None):
