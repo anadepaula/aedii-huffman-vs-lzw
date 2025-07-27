@@ -14,11 +14,22 @@ durante o segundo quadrimestre de 2025.
 
 ## Como usar
 
-## compressão usando huffman
+### compressão usando huffman
 
-`python src/huffman.py compress test2.txt`
-Serão criados 2 arquivos: `test2.huff` e `test2.huffmap` 
+`python src/main.py compress huffman data/example.fna`
+Serão criados 2 arquivos: `data/example.huff` e `data/example.huffmap` 
 
+### descompressão usando huffman
 
-`python src/huffman.py decompress test4.huff test4.huffmap test4_decoded.txt`
-O arquivo `test4.huff` será descomprimido usando o mapa de `test4.huffmap`, e o resultado será salvo em `test4_decoded.txt`
+`python src/main.py decompress huffman data/example.huff data/example.huffmap data/decomp_huff_example.fna`
+O arquivo descomprimido será salvo em `data/decomp_huff_example.fna`
+
+### compressão usando lzw
+
+`python src/main.py compress lzw data/example.fna`
+O aarquivo será salvo em `data/example.lzw`
+
+### descompressão usando lzw
+
+`python src/main.py decompress lzw data/example.lzw data/decomp_lzw_example.fna`
+O arquivo descomprimido será salvo em `data/decomp_lzw_example.fna`
