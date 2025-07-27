@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 import pandas as pd
 import time
+import json
 
 from main import (
     huffman_compress_cli,
@@ -64,17 +65,18 @@ def get_execution_metrics(file, number_of_runs=5):
         all_runs_info.append(run_info)
     return all_runs_info
 
-files = [
-    "data/streptomyces.fna",
-    "data/pseudomonas.fna",
-    "data/paramuribaculum.fna",
-    "data/megasphaera.fna",
-    "data/campylobacter.fna",
-]
+dir_with_files = "data"
+json_mapping_file = Path(dir_with_files, "file_mapping.json")
+
+with open(json_mapping_file) as f:
+    mapping_files = json.load(f)
 
 execution_info_all_dnas = []
-for file in files:
-    execution_metrics = get_execution_metrics(file)
+
+for name, url in mapping_files.items():
+    file_path = str(Path(dir_with_files, f"{name}.fna"))
+
+    execution_metrics = get_execution_metrics(file_path)
     execution_info_all_dnas.extend(execution_metrics)
 
 pd.DataFrame(
