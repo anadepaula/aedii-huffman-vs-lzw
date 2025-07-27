@@ -1,6 +1,6 @@
 from utils import (
-    parse_args_huffman,
-    parse_args_compress_huffman, 
+    parse_args_main,
+    parse_args_compress, 
     parse_args_decompress_huffman,
     read_text_file, 
     save_content_to_file, 
@@ -18,7 +18,7 @@ from huffman.decompress import load_compressed_file, decompress_data
 
 
 def huffman_compress(args=None):
-    args = parse_args_compress_huffman(args)
+    args = parse_args_compress(args)
     filename = args.file_to_compress_path
 
     logger.info(f"let's try to compress {filename}")
@@ -50,7 +50,7 @@ def huffman_decompress(args=None):
     save_content_to_file(decompressed_data, output_file_path, WRITING_MODE_DECOMPRESS)
 
 if __name__ == "__main__":
-    args, remaining_args = parse_args_huffman()
+    args, remaining_args = parse_args_main()
 
     if args.step == "compress":
         huffman_compress(remaining_args)

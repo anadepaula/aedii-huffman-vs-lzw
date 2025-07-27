@@ -28,7 +28,7 @@ def validate_file_to_compress(filename):
         filename,
     )
 
-def validate_compressed_file(filename):
+def validate_huffman_compressed_file(filename):
     return validate_inputted_file(
         filename, 
         HUFFMANN_COMPRESSED_FILE_EXTENSION,
@@ -40,14 +40,14 @@ def validate_compression_map_file(filename):
         HUFFMANN_MAP_EXTENSION,
     )
 
-def parse_args_compress_huffman(args=None):
+def parse_args_compress(args=None):
     parser = argparse.ArgumentParser(
-        description=('utility to decompress files compressed using huffman algorithm')
+        description=('utility to compress files.')
     )
     parser.add_argument(
         'file_to_compress_path',
         type=validate_file_to_compress,
-        help = 'filename of file to compress using huffman algorithm'
+        help = 'path to file to compress'
     )
 
     parsed_args = parser.parse_args(args)
@@ -59,7 +59,7 @@ def parse_args_decompress_huffman(args=None):
     )
     parser.add_argument(
         'file_path',
-        type=validate_compressed_file,
+        type=validate_huffman_compressed_file,
         help = 'filename of .huff file containing the compressed file.'
     )
     parser.add_argument(
@@ -75,7 +75,7 @@ def parse_args_decompress_huffman(args=None):
     parsed_args = parser.parse_args(args)
     return parsed_args
 
-def parse_args_huffman():
+def parse_args_main():
     parser = argparse.ArgumentParser(
         description=('utility to compress files compressed using huffman algorithm')
     )
