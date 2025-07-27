@@ -12,7 +12,7 @@ from utils import (
     WRITING_MODE_DECOMPRESS,
 )
 
-from huffman.compress import create_frequencies_table, create_huffmann_tree, encode, compress
+from huffman.compress import break_file_content_in_words, create_frequencies_table, create_huffmann_tree, encode, compress
 from huffman.decompress import load_compressed_file, decompress_data
 
 
@@ -23,9 +23,10 @@ def huffman_compress():
     logger.info(f"let's try to compress {filename}")
     file_content = read_text_file(filename)
 
-    frequencies_table = create_frequencies_table(file_content)
+    words = break_file_content_in_words(file_content)
+    frequencies_table = create_frequencies_table(words)
     map_tree = create_huffmann_tree(frequencies_table)
-    encoded_content = encode(file_content, map_tree)
+    encoded_content = encode(words, map_tree)
     compressed_content = compress(encoded_content)
     
     filename_compressed_file, filename_map_tree = get_file_names_huffman(filename)
