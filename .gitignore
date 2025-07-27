@@ -1,6 +1,13 @@
+# project-specific files
+*.huff
+*.huffmap
+*.lzw
+
 # text files
 *.txt
 
+# log files
+*.log
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

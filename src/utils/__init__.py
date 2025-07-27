@@ -17,12 +17,14 @@ from .file_handling import (
     read_huffman_map,
 )
 from .arguments_parsing import (
+    parse_args_huffman,
     parse_args_compress_huffman,
     parse_args_decompress_huffman,
 )
 
 __all__ = [
     logger,
+    parse_args_huffman,
     parse_args_compress_huffman,
     parse_args_decompress_huffman,
     read_text_file,
