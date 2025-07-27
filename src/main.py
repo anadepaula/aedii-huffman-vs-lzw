@@ -54,6 +54,7 @@ def huffman_compress_cli(args=None):
     save_huffman_compressed(compressed_content, file_object_compressed_file)
     save_huffman_map_to_file(map_tree, file_object_map_tree)
     logger.info(f"compression finished!")
+    return filename_compressed_file, filename_map_tree
 
 def huffman_decompress_cli(args=None):
     args = parse_args_decompress_huffman(args)
@@ -72,6 +73,7 @@ def huffman_decompress_cli(args=None):
         output_file_path
     )
     save_decompressed_data(decompressed_data, file_object_decompressed_file)
+    return output_file_path
 
 def lzw_compress_cli(args=None):
     args = parse_args_compress(args)
@@ -95,6 +97,7 @@ def lzw_compress_cli(args=None):
         alphabet
     )
     logger.info(f"compression finished!")
+    return filename_compressed_file
 
 def lzw_decompress_cli(args=None):
     args = parse_args_decompress_lzw(args)
@@ -110,6 +113,7 @@ def lzw_decompress_cli(args=None):
         output_file_path
     )
     save_decompressed_data(decompressed, file_object_decompressed_file)
+    return output_file_path
 
 
 if __name__ == "__main__":
