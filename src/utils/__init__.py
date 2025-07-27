@@ -11,10 +11,14 @@ from .file_handling import (
     save_huffman_map_to_file,
     get_file_names_huffman,
 )
-from .arguments_parsing import parse_args_decompress_huffman
+from .arguments_parsing import (
+    parse_args_compress_huffman,
+    parse_args_decompress_huffman,
+)
 
 __all__ = [
     logger,
+    parse_args_compress_huffman,
     parse_args_decompress_huffman,
     read_text_file,
     save_content_to_file,
