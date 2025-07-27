@@ -11,7 +11,6 @@ from utils import (
     get_file_names_lzw,
     read_binary_file,
     logger,
-
 )
 
 from huffman import (
@@ -33,17 +32,14 @@ from lzw import (
 
 def huffman_compress_cli(args=None):
     args = parse_args_compress(args)
-    logger.debug(f"args {args}")
     filename = args.file_to_compress_path
 
-    logger.info(f"let's try to compress {filename}")
     file_content = read_text_file(filename)
 
     compressed_content, map_tree = huffman_compress(file_content)
     
     filename_compressed_file, filename_map_tree = get_file_names_huffman(filename)
 
-    logger.info(f"saving outputs in {filename_compressed_file} and {filename_map_tree}")
     file_object_compressed_file = get_file_object_to_write_compressed_file(
         filename_compressed_file
     )
@@ -53,12 +49,12 @@ def huffman_compress_cli(args=None):
 
     save_huffman_compressed(compressed_content, file_object_compressed_file)
     save_huffman_map_to_file(map_tree, file_object_map_tree)
-    logger.info(f"compression finished!")
+
     return filename_compressed_file, filename_map_tree
 
 def huffman_decompress_cli(args=None):
     args = parse_args_decompress_huffman(args)
-    logger.debug(f"args {args}")
+    logger.info(args)
     file_path = args.file_path
     map_file_path = args.map_file_path
     output_file_path = args.output_file_path
@@ -73,21 +69,18 @@ def huffman_decompress_cli(args=None):
         output_file_path
     )
     save_decompressed_data(decompressed_data, file_object_decompressed_file)
+
     return output_file_path
 
 def lzw_compress_cli(args=None):
     args = parse_args_compress(args)
-    logger.debug(f"args {args}")
     filename = args.file_to_compress_path
-    logger.debug(f"filename {filename}")
 
-    logger.info(f"let's try to compress {filename}")
     file_content = read_text_file(filename)
 
     compressed_content, alphabet = lzw_compress(file_content)
     
     filename_compressed_file = get_file_names_lzw(filename)
-    logger.info(f"saving outputs in {filename_compressed_file}")
     file_object_compressed_file = get_file_object_to_write_compressed_file(
         filename_compressed_file
     )
@@ -96,12 +89,11 @@ def lzw_compress_cli(args=None):
         compressed_content,
         alphabet
     )
-    logger.info(f"compression finished!")
+
     return filename_compressed_file
 
 def lzw_decompress_cli(args=None):
     args = parse_args_decompress_lzw(args)
-    logger.debug(f"args {args}")
     file_path = args.file_path
     output_file_path = args.output_file_path
 
@@ -113,17 +105,15 @@ def lzw_decompress_cli(args=None):
         output_file_path
     )
     save_decompressed_data(decompressed, file_object_decompressed_file)
+
     return output_file_path
 
 
 if __name__ == "__main__":
     args, remaining_args = parse_args_main()
-    logger.debug(f"args {args}")
-    logger.debug(f"remaining args {remaining_args}")
 
     step = args.step
     algorithm = args.algorithm
-    logger.debug(f"step {step} algorithm {algorithm}")
 
     if step == "compress" and algorithm == "huffman":
         action = huffman_compress_cli
