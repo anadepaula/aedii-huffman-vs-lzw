@@ -39,35 +39,20 @@ class Node(object):
         """
         return self.val < other.val
     
-def save_compress_file(text_cod, map):
+def save_compress_file(compressed_text, compression_map, filename):
+    filename_without_extension = filename.rsplit(".", 1)[0]
     data = bytearray()
-    padding = 8 - len(text_cod) % 8
-    text_cod += '0' * padding
+    padding = 8 - len(compressed_text) % 8
+    compressed_text += '0' * padding
     data.append(padding)
-    for i in range (0, len(text_cod), 8):
-        byte = text_cod[i:i+8]
-        data.append(int(byte, 2))
-    root = Tk()
-    root.withdraw()
-    folder = filedialog.askdirectory() 
-    with open(folder + "/texto_comprimido.huff", 'wb') as f:
-        f.write(data)
-    with open(folder + "/huffman_map.huffmap", 'wb') as f:
-        pickle.dump(map, f)
-
-def save_compress_file2(filename, text_cod, map):
-    data = bytearray()
-    padding = 8 - len(text_cod) % 8
-    text_cod += '0' * padding
-    data.append(padding)
-    for i in range (0, len(text_cod), 8):
-        byte = text_cod[i:i+8]
+    for i in range (0, len(compressed_text), 8):
+        byte = compressed_text[i:i+8]
         data.append(int(byte, 2))
 
-    with open(filename + ".huff", 'wb') as f:
+    with open(filename_without_extension + ".huff", 'wb') as f:
         f.write(data)
-    with open(filename + ".huffmap", 'wb') as f:
-        pickle.dump(map, f)
+    with open(filename_without_extension + ".huffmap", 'wb') as f:
+        pickle.dump(compression_map, f)
  
 
  
@@ -163,7 +148,7 @@ def criar_tabela_freq(texto):
     return freq
    
    
-def abrir_arquivo():
+def abrir_arquivo_with_directory_prompt():
     """
     Abre um arquivo .txt e retorna o texto contido nele.
 
@@ -172,12 +157,10 @@ def abrir_arquivo():
     """
     Tk().withdraw() 
     filename = askopenfilename() 
-    f = open(filename, 'r', encoding='utf-8')
-    texto = f.read()
-    return texto
+    return filename, abrir_arquivo(filename)
  
 
-def abrir_arquivo2(filename):
+def abrir_arquivo(filename):
     """
     Abre um arquivo .txt e retorna o texto contido nele.
 
@@ -198,22 +181,22 @@ def huffman_compress(filename):
     Returns:
         None
     """
-    texto = abrir_arquivo2(filename + ".txt")
+    texto = abrir_arquivo(filename + ".txt")
     freq_table = criar_tabela_freq(texto)
     huff_dic = criar_arvore_huffman(freq_table)
     codificado = codificar_texto(texto, huff_dic)
-    save_compress_file2(filename, codificado, huff_dic)
+    save_compress_file(codificado, huff_dic, filename)
 
 
 def main():
     """
     Função principal que executa o processo de leitura do arquivo, criação da tabela de frequência e da árvore de Huffman.
     """
-    text = abrir_arquivo()
+    filename, text = abrir_arquivo_with_directory_prompt()
     freq_table = criar_tabela_freq(text)
     huff_dic = criar_arvore_huffman(freq_table)
     codificado = codificar_texto(text, huff_dic)
-    save_compress_file(codificado, huff_dic)
+    save_compress_file(codificado, huff_dic, filename)
 
 if __name__ == "__main__":
     main()
