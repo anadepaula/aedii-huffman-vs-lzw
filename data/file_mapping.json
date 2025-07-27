@@ -1,0 +1,7 @@
+{
+    "pseudomonas": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/010/095/445/GCF_010095445.2_ASM1009544v2/GCF_010095445.2_ASM1009544v2_genomic.fna.gz",
+    "campylobacter": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/917/880/785/GCF_917880785.1_94.76/GCF_917880785.1_94.76_genomic.fna.gz",
+    "streptomyces": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/036/057/275/GCF_036057275.1_ASM3605727v1/GCF_036057275.1_ASM3605727v1_genomic.fna.gz",
+    "paramuribaculum": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/949/027/935/GCF_949027935.1_MGBC109193/GCF_949027935.1_MGBC109193_genomic.fna.gz",
+    "megasphaera": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/958/442/755/GCF_958442755.1_ERR4918936_bin.34_MetaWRAP_v1.3_MAG/GCF_958442755.1_ERR4918936_bin.34_MetaWRAP_v1.3_MAG_genomic.fna.gz"
+}
