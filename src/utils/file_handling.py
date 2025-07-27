@@ -9,11 +9,11 @@ from .types import (
 
 
 def read_text_file(filename, mode=READING_MODE_COMPRESS, encoding='utf-8'):
-    logger.debug(f"filename {filename}, mode {mode}, encoding {encoding}")
+    # logger.debug(f"filename {filename}, mode {mode}, encoding {encoding}")
     return read_file(filename, mode, encoding)
 
 def read_binary_file(filename, encoding=None):
-    logger.debug(f"filename {filename}, encoding {encoding}")
+    # logger.debug(f"filename {filename}, encoding {encoding}")
     return read_file(filename, "rb", encoding)
 
 def read_file(filename, mode, encoding=None):
@@ -23,7 +23,7 @@ def read_file(filename, mode, encoding=None):
     Returns:
         str: Texto contido no arquivo.
     """
-    logger.debug(f"filename {filename}, mode {mode}, encoding {encoding}")
+    # logger.debug(f"filename {filename}, mode {mode}, encoding {encoding}")
     try:
         with open(filename, mode, encoding=encoding) as f:
             texto = f.read()
@@ -32,19 +32,6 @@ def read_file(filename, mode, encoding=None):
         raise e
     else:
         return texto
- 
-def save_content_to_file(content, filename, mode):
-    logger.debug(f"filename {filename}, mode {mode}")
-    with open(filename, mode) as f:
-        f.write(content)
-
-def save_decompressed_content_to_file(content, filename):
-    mode = WRITING_MODE_DECOMPRESS
-    save_content_to_file(content, filename, mode)
-
-def save_huffman_map_to_file(huffman_map, filename):
-    with open(filename, WRITING_MODE_COMPRESS) as f:
-        pickle.dump(huffman_map, f)
 
 def read_huffman_map(filename):
     with open(filename, READING_MODE_DECOMPRESS) as f:
@@ -68,10 +55,17 @@ def get_file_names_huffman(filename):
 
     return filename_compressed_file, filename_map_tree
 
-def get_file_object_to_read_lzw_compressed_file(filename):
-    file_object = open(filename, "rb")
-    return file_object
+def get_file_object(filename, mode):
+    return open(filename, mode)
 
-def get_file_object_to_write_lzw_compressed_file(filename):
-    file_object = open(filename, "wb")
-    return file_object
+def get_file_object_to_read_decompressed_file(filename):
+    return get_file_object(filename, READING_MODE_DECOMPRESS)
+
+def get_file_object_to_write_compressed_file(filename):
+    return get_file_object(filename, WRITING_MODE_COMPRESS)
+
+def get_file_object_to_read_compressed_file(filename):
+    return get_file_object(filename, READING_MODE_COMPRESS)
+
+def get_file_object_to_write_decompressed_file(filename):
+    return get_file_object(filename, WRITING_MODE_DECOMPRESS)

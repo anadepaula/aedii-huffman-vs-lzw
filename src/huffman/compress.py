@@ -1,24 +1,5 @@
 import heapq
-import re
-from textwrap import wrap
 
-DELIMITERS = r'([^a-zA-Z0-9])'
-DNA_WORD_SIZE = 5
-LINEBREAK = "\n"
-
-def break_file_content_in_words(file_content, dna_sequence_size=3):
-    lines = file_content.split(LINEBREAK)
-    all_words = []
-    for line in lines:
-        if line.startswith(">"):
-            words = re.split(DELIMITERS, line)
-        else:
-            words = wrap(line, dna_sequence_size)
-
-        words.append(LINEBREAK)
-        all_words.extend(words)
-    # TODO: the handling of empty lines in the input file is subpar, need to fix this
-    return all_words
 
 def create_frequencies_table(text):
     """
@@ -142,7 +123,7 @@ def encode(texto, huffman_dic):
         new_text += huffman_dic[i]
     return new_text
 
-def compress(encoded_content):
+def compress_data(encoded_content):
     data = bytearray()
     padding = 8 - len(encoded_content) % 8
     encoded_content += '0' * padding
@@ -153,3 +134,4 @@ def compress(encoded_content):
     
     
     return data
+

@@ -111,6 +111,11 @@ def parse_args_main():
         choices=("compress", "decompress"),
         help = 'step to perform'
     )
+    parser.add_argument(
+        'algorithm',
+        choices=("huffman", "lzw"),
+        help = 'algorithm to use to compress or decompress'
+    )
 
     args, remaining_args = parser.parse_known_args()
     return args, remaining_args
