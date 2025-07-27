@@ -13,7 +13,7 @@ def read_text_file(filename, mode=READING_MODE_COMPRESS, encoding='utf-8'):
     return read_file(filename, mode, encoding)
 
 def read_binary_file(filename, encoding=None):
-    logger.debug(f"filename {filename}, mode {mode}, encoding {encoding}")
+    logger.debug(f"filename {filename}, encoding {encoding}")
     return read_file(filename, "rb", encoding)
 
 def read_file(filename, mode, encoding=None):
@@ -41,6 +41,12 @@ def save_content_to_file(content, filename, mode):
 def save_huffman_map_to_file(huffman_map, filename):
     with open(filename, WRITING_MODE_COMPRESS) as f:
         pickle.dump(huffman_map, f)
+
+def read_huffman_map(filename):
+    with open(filename, READING_MODE_DECOMPRESS) as f:
+        content = pickle.load(f)
+    return content
+
 
 def get_file_names_huffman(filename):
     filename_without_extension = filename.rsplit(".", 1)[0]

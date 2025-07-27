@@ -10,9 +10,11 @@ from .types import(
 )
 from .file_handling import (
     read_text_file,
+    read_binary_file,
     save_content_to_file,
     save_huffman_map_to_file,
     get_file_names_huffman,
+    read_huffman_map,
 )
 from .arguments_parsing import (
     parse_args_compress_huffman,
@@ -24,9 +26,11 @@ __all__ = [
     parse_args_compress_huffman,
     parse_args_decompress_huffman,
     read_text_file,
+    read_binary_file,
     save_content_to_file,
     save_huffman_map_to_file,
     get_file_names_huffman,
+    read_huffman_map,
     HUFFMANN_COMPRESSED_FILE_EXTENSION,
     HUFFMANN_MAP_EXTENSION,
     LZW_COMPRESSED_FILE_EXTENSION,
