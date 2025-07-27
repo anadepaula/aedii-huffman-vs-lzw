@@ -6,21 +6,17 @@ from .types import (
     HUFFMANN_MAP_EXTENSION,
     LZW_COMPRESSED_FILE_EXTENSION,
 )
-from .logging import logger
 
 
 def validate_inputted_file(filename, extension=None):
     if extension:
         if not filename.endswith(extension):
             return False
-    
     try:
         assert os.path.exists(filename)
     except AssertionError as e:
-        logger.error(f"file {filename} doesn't exist")
         raise FileNotFoundError(filename)
     except Exception as e:
-        logger.error(f"something happened while trying to open file {filename}: {e}")
         raise e
 
     return filename
@@ -62,7 +58,6 @@ def parse_args_compress(args=None):
     return parsed_args
 
 def parse_args_decompress_lzw(args=None):
-    logger.info(args)
     parser = argparse.ArgumentParser(
         description=('utility to compress files compressed using lzw algorithm')
     )
@@ -77,7 +72,6 @@ def parse_args_decompress_lzw(args=None):
     )
 
     parsed_args = parser.parse_args(args)
-    logger.info(parsed_args)
     return parsed_args
 
 def parse_args_decompress_huffman(args=None):
