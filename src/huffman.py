@@ -1,4 +1,5 @@
 from utils import (
+    parse_args_huffman,
     parse_args_compress_huffman, 
     parse_args_decompress_huffman,
     read_text_file, 
@@ -16,8 +17,8 @@ from huffman.compress import break_file_content_in_words, create_frequencies_tab
 from huffman.decompress import load_compressed_file, decompress_data
 
 
-def huffman_compress():
-    args = parse_args_compress_huffman()
+def huffman_compress(args=None):
+    args = parse_args_compress_huffman(args)
     filename = args.file_to_compress_path
 
     logger.info(f"let's try to compress {filename}")
@@ -36,8 +37,8 @@ def huffman_compress():
     save_huffman_map_to_file(map_tree, filename_map_tree)
     logger.info(f"compression finished!")
 
-def huffman_decompress():
-    args = parse_args_decompress_huffman()
+def huffman_decompress(args=None):
+    args = parse_args_decompress_huffman(args)
     file_path = args.file_path
     map_file_path = args.map_file_path
     output_file_path = args.output_file_path
@@ -49,4 +50,9 @@ def huffman_decompress():
     save_content_to_file(decompressed_data, output_file_path, WRITING_MODE_DECOMPRESS)
 
 if __name__ == "__main__":
-    huffman_decompress()
+    args, remaining_args = parse_args_huffman()
+
+    if args.step == "compress":
+        huffman_compress(remaining_args)
+    else:
+        huffman_decompress(remaining_args)
