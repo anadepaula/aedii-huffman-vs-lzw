@@ -54,7 +54,6 @@ def huffman_compress_cli(args=None):
 
 def huffman_decompress_cli(args=None):
     args = parse_args_decompress_huffman(args)
-    logger.info(args)
     file_path = args.file_path
     map_file_path = args.map_file_path
     output_file_path = args.output_file_path
