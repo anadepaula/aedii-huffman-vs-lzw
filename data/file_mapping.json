@@ -1,7 +1,20 @@
 {
-    "pseudomonas": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/010/095/445/GCF_010095445.2_ASM1009544v2/GCF_010095445.2_ASM1009544v2_genomic.fna.gz",
-    "campylobacter": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/917/880/785/GCF_917880785.1_94.76/GCF_917880785.1_94.76_genomic.fna.gz",
-    "streptomyces": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/036/057/275/GCF_036057275.1_ASM3605727v1/GCF_036057275.1_ASM3605727v1_genomic.fna.gz",
-    "paramuribaculum": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/949/027/935/GCF_949027935.1_MGBC109193/GCF_949027935.1_MGBC109193_genomic.fna.gz",
-    "megasphaera": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/958/442/755/GCF_958442755.1_ERR4918936_bin.34_MetaWRAP_v1.3_MAG/GCF_958442755.1_ERR4918936_bin.34_MetaWRAP_v1.3_MAG_genomic.fna.gz"
+    "arabidopsis_thaliana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/222/325/GCA_000222325.1_Bur-0_2010-09-30/GCA_000222325.1_Bur-0_2010-09-30_genomic.fna.gz",
+    "bombyx_mori": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/151/715/GCA_000151715.1_ASM15171v1/GCA_000151715.1_ASM15171v1_genomic.fna.gz",
+    "brugia_malayi": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/002/995/GCA_000002995.2_ASM299v2/GCA_000002995.2_ASM299v2_genomic.fna.gz",
+    "caenorhabditis_elegans": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/939/815/GCA_000939815.1_C_elegans_Bristol_N2_v1_5_4/GCA_000939815.1_C_elegans_Bristol_N2_v1_5_4_genomic.fna.gz",
+    "caenorhabditis_elegans": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/483/305/GCA_001483305.2_ASM148330v2/GCA_001483305.2_ASM148330v2_genomic.fna.gz",
+    "chlamydomonas_reinhardtii": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/002/595/GCA_000002595.2_v3.0/GCA_000002235.3_Spur_4.2_genomic.fna.gz",
+    "drosophila_melanogaster": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/014/345/GCA_001014345.1_ASM101434v1/GCA_001014345.1_ASM101434v1_genomic.fna.gz",
+    "hordeum_vulgare": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/900/075/435/GCA_900075435.2_barley_BACs_2/GCA_900075435.2_barley_BACs_2_genomic.fna.gz",
+    "loxodonta_africana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/001/905/GCA_000001905.1_Loxafr3.0/GCA_000001905.1_Loxafr3.0_genomic.fna.gz",
+    "strongylocentrotus_purpuratus": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/002/235/GCA_000002235.3_Spur_4.2/GCA_000151625.1_ASM15162v1_genomic.fna.gz",
+    "tetrahymena_thermophila": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/189/635/GCA_000189635.1_JCVI-TTA1-2.2/GCA_000189635.1_JCVI-TTA1-2.2_genomic.fna.gz",
+    "trypanosoma_cruzi": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/209/065/GCA_000209065.1_ASM20906v1/GCA_000209065.1_ASM20906v1_genomic.fna.gz",
+    "arabidopsis_thaliana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/222/345/GCA_000222345.1_C24_2010-09-30/GCA_000222345.1_C24_2010-09-30_genomic.fna.gz",
+    "arabidopsis_thaliana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/222/365/GCA_000222365.1_Ler-1_2010-09-30/GCA_000222365.1_Ler-1_2010-09-30_genomic.fna.gz",
+    "arabidopsis_thaliana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/222/385/GCA_000222385.1_Kro-0_2010-09-30/GCA_000222385.1_Kro-0_2010-09-30_genomic.fna.gz",
+    "arabidopsis_thaliana": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/742/845/GCA_001742845.1_AthNd1_v1.0/GCA_001742845.1_AthNd1_v1.0_genomic.fna.gz",
+    "bombyx_mori": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/000/151/625/GCA_000151625.1_ASM15162v1/GCA_000151625.1_ASM15162v1_genomic.fna.gz",
+    "ambystoma_mexicanum": "https://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/002/915/635/GCA_002915635.1_ASM291563v1/GCA_002915635.1_ASM291563v1_genomic.fna.gz"
 }
