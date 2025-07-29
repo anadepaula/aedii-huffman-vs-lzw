@@ -1,5 +1,5 @@
 {
-  "name": "Ambiente de Compressão Genômica",
+  "name": "Comparando os algoritmos de Huffman e LZW na tarefa de compressão genômica",
   "image": "mcr.microsoft.com/devcontainers/python:3.11",
   "features": {},
   "postCreateCommand": "pip install -r requirements.txt",
