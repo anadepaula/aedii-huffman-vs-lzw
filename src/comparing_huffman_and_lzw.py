@@ -18,7 +18,31 @@ from utils import logger
 def get_size_of_file(filename):
     return os.path.getsize(Path(filename))
 
-def get_execution_metrics(file, index, number_of_runs=5):
+def count_bases(file_path):
+    counting_bases = {
+        "A": 0,
+        "C": 0,
+        "G": 0,
+        "T": 0,
+        "N": 0,
+    }
+    has_extra_chars = False
+    bases = set(counting_bases.keys())
+    with open(file_path, "r") as f:
+        content = f.readlines()
+        for line in content:
+            line = line.strip()
+            if not line.startswith(">"):
+                for base in counting_bases.keys():
+                    counting_bases[base] += line.count(base)
+                if (not has_extra_chars) and set(line) - bases:
+                    has_extra_chars = True
+
+    counting_bases["has_extra_chars"] = has_extra_chars
+    return counting_bases
+
+def get_execution_metrics(name, file, index, number_of_runs=5):
+    execution_filename = f"execution_info_{name}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.json"
 
     all_runs_info = []
     file_size = get_size_of_file(file)
@@ -71,7 +95,6 @@ def get_execution_metrics(file, index, number_of_runs=5):
         tracemalloc.stop()
         end_time = time.time()
         lzw_decompressing_time = end_time - start_time
-        logger.info(f"[{index}][{file}] [{run}] finished")
 
         run_info = {
             "file": file,
@@ -93,14 +116,21 @@ def get_execution_metrics(file, index, number_of_runs=5):
             "lzw_decompressing_memory_peak": lzw_decompressing_memory_peak,
             "lzw_compressed_file_size": lzw_compressed_file_size,
         }
+        
+        logger.info(f"[{index}][{file}] [{run}] counting bases")
+        bases_counting = count_bases(file)
+        run_info.update(bases_counting)
 
+        with open(execution_filename, "w") as f:
+            json.dump(run_info, f)
+        logger.info(f"[{index}][{file}] [{run}] finished! data saved in {execution_filename}")
         all_runs_info.append(run_info)
 
     logger.info(f"[{index}][{file}] all runs finished!")
     
     return all_runs_info
 
-filename = f"execution_info_all_dnas_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv"
+all_runs_filename = f"execution_info_all_dnas_{datetime.now().strftime("%Y%m%d_%H%M%S")}.csv"
 
 dir_with_files = "data"
 json_mapping_file = Path(dir_with_files, "file_mapping.json")
@@ -114,7 +144,7 @@ n_files = len(files)
 logger.info(
     "will run the stats for the following files "
     f"in the dir {dir_with_files}: {','.join(files)} "
-    f"and save the result to the file {filename}."
+    f"and save the result to the file {all_runs_filename}."
 )
 
 execution_info_all_dnas = []
@@ -122,6 +152,7 @@ execution_info_all_dnas = []
 for index, name in enumerate(files, start=1):
     file_path = str(Path(dir_with_files, f"{name}.fna"))
     execution_metrics = get_execution_metrics(
+        name,
         file_path, 
         f"{index}/{n_files}",
         number_of_runs=1,
@@ -132,6 +163,7 @@ datetime.now.strftime("%Y%m%d_%H%M%S")
 pd.DataFrame(
     data=execution_info_all_dnas
 ).to_csv(
-    filename, 
+    all_runs_filename,
     index=False,
 )
+logger.info(f"all runs finished! data saved in {all_runs_filename}")
